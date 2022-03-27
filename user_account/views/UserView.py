@@ -26,15 +26,12 @@ class LoginAPI(generics.GenericAPIView):
     This endpoint provides a login credentials for registered users
 
     Sample Response:
-    {
+{
     "id": 1,
-    "firstname": "Misty",
-    "othernames": "Me",
-    "email": "moses.wuniche@gmail.com",
-    "tokens": {
-        "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYyMzg1NTYwOSwianRpIjoiN2MzM2EzOGQzNTdjNDIwMmIzMjU2ZTY0MDMwZTgyOGEiLCJ1c2VyX2lkIjoxfQ.yiKiidzPPy9Z7xJd2wLtWlPMNcucefVBqoHpjMXaJUw",
-        "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjIzODU1NjA5LCJqdGkiOiIxYWMyNTYzNmIzYWE0MmYwOGI1OTI5YmUyZGZhMzJiZCIsInVzZXJfaWQiOjF9.NSMEVdmfw7JMb4yjaKFh_NBQXEl2P5SQ64hyCzBse-Q"
-    }
+    "firstname": null,
+    "othernames": null,
+    "email": "moses@gmail.com",
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vc2VzQGdtYWlsLmNvbSIsImV4cCI6MTY0ODQwODAzOH0.6A1g_rcjVynEYM4OlvJyIt0ips1-U6Pi7LWHeIcrcdM"
 }
     """
     permission_classes = [permissions.AllowAny, ]

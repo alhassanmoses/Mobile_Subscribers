@@ -15,9 +15,9 @@ class MobileSubscriberModel(models.Model):
         unique=True
     )
 
-    customer_id_owner = models.OneToOneField(
+    customer_id_owner = models.ForeignKey(
         User,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='Customer_id_owner'
     )
 

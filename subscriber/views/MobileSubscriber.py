@@ -140,8 +140,15 @@ class UpdateMobileSubscriberAPI(generics.UpdateAPIView):
 
     def put(self, request, pk):
         model = get_object_or_404(MobileSubscriberModel, pk=pk)
+        service_type = self.request.data.get('service_type', None)
+
+        if not service_type:
+            return Response({
+                "service_type": ["This field may not be blank."]
+            },
+                status=status.HTTP_400_BAD_REQUEST)
         data = {
-            "service_type": self.request.data.get('service_type')}
+            "service_type": service_type}
         serializer = MobSubUpdateSerializer(model, data=data, partial=True)
         if serializer.is_valid():
             serializer.update(model, data)
