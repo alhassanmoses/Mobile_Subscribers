@@ -12,9 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,9 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^!i-%g)a2697%3j-4ob!h05l*f$i_0z5!*3p1f8au39gyhhk34'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True  # (os.getenv('DEBUG', 'False') == 'True')
 
-ALLOWED_HOSTS = []
+# # SECURITY WARNING: keep the secret key used in production secret!
+# SECRET_KEY = os.getenv("DJANGO_SECRET")
+
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,13 +41,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'account',
+    'user_account',
     'subscriber',
+    'rest_framework_simplejwt',
     'drf_api_logger',
+    'django_filters',
+    'corsheaders',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -60,7 +67,7 @@ ROOT_URLCONF = 'mobile_subscribers.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR, os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -84,6 +91,26 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+}
+
+AUTH_USER_MODEL = 'user_account.User'
+
+REST_FRAMEWORK = {
+    'NONE_FIELD_ERRORS_KEY': 'error',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticated', ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+}
+
+ACCESS_TOKEN_LIFETIME = timedelta(hours=2)
+REFRESH_TOKEN_LIFETIME = timedelta(hours=2)
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': ACCESS_TOKEN_LIFETIME,
+    'REFRESH_TOKEN_LIFETIME': REFRESH_TOKEN_LIFETIME,
+    'AUTH_HEADER_TYPES': ('Bearer', 'JWT', 'Token',),
 }
 
 
