@@ -1,5 +1,6 @@
 ## Table of Contents
 
+- [GettingStarted](#GettingStarted)
 - [LoginAPI](#LoginAPI)
 - [RegisterAPI](#RegisterAPI)
 - [TokenRefreshView](#TokenRefreshView)
@@ -7,7 +8,19 @@
 - [UpdateMobileSubscriberAPI](#UpdateMobileSubscriberAPI)
 - [ListMobileSubscriberAPI](#ListMobileSubscriberAPI)
 
+<a name="GettingStarted">Setup Guide</a>
+Setting up a Django-rest project take relatively few steps and can be quite fun, so buckle up, here we go:
+
+- Move into the backend directory with `cd Mobile_Subscriber_BE/`
+- Activate the virtual environment with `source ./venv/bin/activate`. If you happen not to have 'venv' upon cloning use `python -m venv venv` to create one then activate it with the previous command.
+- Now, lets get our dependencies installed using `pip install -r requirements.txt`
+- ** We're almost there, just a few more steps :) Lets get our migrations done **
+- Run `python manage.py makemigrations` and `python manage.py migrate` commands 
+- We're all set, here's the final command `python manage.py runserver`
+- Your server should be up and running and you can now access the backend APIs through the root url _http://localhost:8000/_ or _http://127.0.0.1:8000/_
+
 <a name="LoginAPI">User Account Signin API</a>
+
 This API returns the details of an authenticated user after the appropriate credentials 
 have been provided.
 
